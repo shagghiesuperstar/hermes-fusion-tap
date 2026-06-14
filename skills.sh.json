@@ -1,0 +1,28 @@
+{
+  "tap": "shagghiesuperstar/hermes-fusion-tap",
+  "description": "Fusion Orchestration System — MOA Judge, Local/Cloud Hybrid, Premortem Diagnostics",
+  "version": "1.0.0",
+  "maintained_by": "shagghiesuperstar",
+  "categories": [
+    {
+      "name": "Fusion & Orchestration",
+      "skills": [
+        {
+          "name": "fusion-orchestrator",
+          "description": "Routes queries through multiple reference models and synthesizes via Judge arbitration. Supports local-only, cloud-only, and hybrid modes.",
+          "tags": ["fusion", "moa", "orchestration", "multi-model", "hybrid"]
+        },
+        {
+          "name": "fusion-judge",
+          "description": "Rubric-based Judge role for evaluating and synthesizing reference model outputs. High-calibration, structured scoring.",
+          "tags": ["judge", "evaluation", "arbitration", "rubric", "calibration"]
+        },
+        {
+          "name": "fusion-eval",
+          "description": "Test harness for calibrating the fusion pipeline. Runs benchmark scenarios and reports drift, consistency, and quality metrics.",
+          "tags": ["eval", "testing", "calibration", "benchmark", "quality"]
+        }
+      ]
+    }
+  ]
+}
