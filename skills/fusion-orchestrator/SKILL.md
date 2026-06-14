@@ -1,47 +1,31 @@
 ---
 name: fusion-orchestrator
-description: Routes queries through multiple reference models and synthesizes via Judge arbitration. Supports local-only, cloud-only, and hybrid modes. Use when you need maximum answer quality, reduced hallucination, or adversarial verification of a response.
-version: 1.0.0
-author: shagghiesuperstar
+description: "Mixture-of-Agents fusion pipeline for Hermes Agent. Routes any query through multiple independent reasoning passes then synthesizes a superior answer via rubric-based Judge arbitration. Supports three modes: local-only (any local inference backend, zero data egress), cloud-only (mixture_of_agents toolset), and hybrid (local reference passes + frontier model judging). Use when you need maximum answer quality, hallucination reduction, adversarial verification, or privacy-preserving inference on sensitive data."
+version: "1.0.0"
 license: MIT
-platforms:
-  # Runs on all platforms — no OS-specific dependencies
-default_metadata:
+compatibility: "Hermes Agent 1.0+ with delegation toolset enabled. Cloud and hybrid modes additionally require mixture_of_agents toolset and OPENROUTER_API_KEY."
+metadata:
+  author: shagghiesuperstar
   hermes:
-    tags: Fusion, Orchestration, Multi-Model, MOA, Hybrid, Local, Cloud, Arbitration
+    tags:
+      - fusion
+      - mixture-of-agents
+      - moa
+      - orchestration
+      - multi-model
+      - hybrid
+      - local
+      - cloud
+      - arbitration
+      - hallucination-reduction
+      - privacy
+      - sovereignty
+    category: agents
+    requires_tools:
+      - delegate_task
     related_skills:
       - fusion-judge
       - fusion-eval
-    requires_toolsets:
-      - delegation    # delegatetask is the fallback fan-out mechanism
-    requires_tools:
-      - delegate_task # must be available
-    config:
-      - key: fusion.mode
-        description: "Fusion dispatch mode. Options: auto (detect MOA availability), moa (force mixture_of_agents), delegate (force delegatetask fan-out)"
-        default: auto
-        prompt: "Fusion dispatch mode (auto/moa/delegate)"
-      - key: fusion.reference_count
-        description: "Number of reference model passes in delegate mode (2-4 recommended)"
-        default: "3"
-        prompt: "How many reference model passes?"
-      - key: fusion.judge_mode
-        description: "How Judge synthesizes: strict (exact rubric), balanced (rubric + intuition), fast (quick pass)"
-        default: balanced
-        prompt: "Judge synthesis mode (strict/balanced/fast)"
-      - key: fusion.log_references
-        description: "Whether to save each reference model response to memory for auditing"
-        default: "false"
-        prompt: "Log reference responses to memory? (true/false)"
-    required_environment_variables:
-      - name: MOA_DISABLED
-        prompt: "Disable cloud MOA and use local delegation only? (true/false)"
-        help: "Set true for air-gapped/local-only deployments. Default: false"
-        required_for: local-only mode detection
-      - name: OPENROUTER_API_KEY
-        prompt: "OpenRouter API key for cloud MOA dispatch"
-        help: "Get at https://openrouter.ai — only required if MOA_DISABLED is not true"
-        required_for: cloud MOA dispatch
 ---
 
 # Fusion Orchestrator
@@ -58,8 +42,19 @@ Load this skill when:
 - The user explicitly requests "best answer", "verify this", "adversarial check", or "fusion mode"
 - You are completing a high-stakes agentic task (code deploy, financial analysis, legal summary) where errors are costly
 - The query involves multi-step reasoning that would benefit from diverse solution paths
+- Privacy or data sovereignty requirements prevent sending queries to cloud inference
 
 Do NOT load for: trivial lookups, simple file edits, casual conversation, tasks where speed >> quality.
+
+---
+
+## Modes
+
+| Mode | How it works | When to use |
+|------|-------------|-------------|
+| `local` | `delegate_task` fan-out to local inference, local Judge pass | Air-gapped, sensitive data, zero egress |
+| `cloud` | `mixture_of_agents` fan-out, cloud Judge pass | Maximum model diversity |
+| `hybrid` | Local reference passes, frontier model judges | Best cost-per-quality ratio |
 
 ---
 
@@ -213,3 +208,8 @@ After delivery, confirm:
 - [ ] Mode used (MOA/delegate) was logged to user
 - [ ] Reference responses available on request
 - [ ] No raw API keys or secrets appear in any output
+
+## Source
+
+- **Tap repository**: [github.com/shagghiesuperstar/hermes-fusion-tap](https://github.com/shagghiesuperstar/hermes-fusion-tap)
+- **Author**: [@shagghiesuperstar](https://github.com/shagghiesuperstar)
