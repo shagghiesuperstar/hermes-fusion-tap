@@ -16,6 +16,8 @@ metadata:
       - fusion
       - synthesis
       - multi-model
+      - local-inference
+      - local-first
       - anti-hallucination
       - structured-output
     category: agents
