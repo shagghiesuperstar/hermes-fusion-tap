@@ -34,10 +34,23 @@ agent:
   max_turns: 90
 
 fusion:
-  mode: delegate                 # force local delegate mode
-  reference_count: "2"           # 2 passes for speed on local hardware
+  mode: roles                    # explicit role-pinned fusion
+  reference_count: "3"
   judge_mode: balanced
   log_references: "false"
+  roles:
+    ref1:
+      provider: custom:local
+      model: your-local-model-a
+    ref2:
+      provider: custom:local
+      model: your-local-model-b
+    ref3:
+      provider: custom:local
+      model: your-local-model-c
+    judge:
+      provider: custom:local
+      model: your-best-local-judge-model
 
 custom_providers:
   - name: local
@@ -74,9 +87,22 @@ agent:
   max_turns: 90
 
 fusion:
-  mode: auto          # auto-detects MOA availability
+  mode: roles
   judge_mode: strict  # full rubric in cloud mode (more tokens affordable)
   log_references: "true"
+  roles:
+    ref1:
+      provider: openai-codex
+      model: gpt-5.5
+    ref2:
+      provider: openrouter
+      model: anthropic/claude-sonnet-4
+    ref3:
+      provider: openrouter
+      model: google/gemini-2.5-pro
+    judge:
+      provider: openai-codex
+      model: gpt-5.5
 ```
 
 ---
@@ -112,10 +138,26 @@ agent:
   max_turns: 90
 
 fusion:
-  mode: auto
+  mode: hybrid
   reference_count: "3"
   judge_mode: balanced
   log_references: "true"
+  discovery_enabled: "true"
+  # Optional: set explicit roles for deterministic model assignment.
+  # Missing roles are filled by discovery/ranking.
+  roles:
+    ref1:
+      provider: custom:local
+      model: mlx-fast
+    ref2:
+      provider: openrouter
+      model: anthropic/claude-sonnet-4
+    ref3:
+      provider: openai-codex
+      model: gpt-5.5
+    judge:
+      provider: openai-codex
+      model: gpt-5.5
 
 custom_providers:
   - name: local
@@ -159,6 +201,11 @@ hermes config migrate
 This prompts you to configure all skill config keys interactively:
 - `fusion.mode`
 - `fusion.reference_count`
+- `fusion.roles.ref1.provider` / `fusion.roles.ref1.model`
+- `fusion.roles.ref2.provider` / `fusion.roles.ref2.model`
+- `fusion.roles.ref3.provider` / `fusion.roles.ref3.model`
+- `fusion.roles.judge.provider` / `fusion.roles.judge.model`
+- `fusion.discovery_enabled`
 - `fusion.judge_mode`
 - `fusion.log_references`
 - `fusion.judge_strictness`
