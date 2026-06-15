@@ -1,6 +1,6 @@
 # hermes-fusion-tap
 
-> **Official Hermes Agent Skills Tap** — Fusion Orchestration System with Mixture-of-Agents Judge, Premortem Diagnostics, and Local/Cloud Hybrid support.
+> **Community Hermes Agent Skills Tap** — Fusion Orchestration System with Mixture-of-Agents Judge, Premortem Diagnostics, and Local/Cloud Hybrid support.
 
 ```
 hermes skills tap add shagghiesuperstar/hermes-fusion-tap
