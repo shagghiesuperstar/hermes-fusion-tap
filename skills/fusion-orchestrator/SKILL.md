@@ -15,6 +15,9 @@ metadata:
       - multi-model
       - hybrid
       - local
+      - local-inference
+      - local-first
+      - air-gapped
       - cloud
       - arbitration
       - hallucination-reduction
