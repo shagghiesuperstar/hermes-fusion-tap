@@ -14,6 +14,8 @@ metadata:
       - benchmark
       - quality
       - fusion
+      - local-inference
+      - local-first
       - drift-detection
       - diagnostics
     category: agents
