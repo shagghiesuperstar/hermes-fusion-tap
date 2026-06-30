@@ -23,6 +23,16 @@
           "tags": ["eval", "testing", "calibration", "benchmark", "quality"]
         }
       ]
+    },
+    {
+      "name": "Social Media & Automation",
+      "skills": [
+        {
+          "name": "hermes-tweet",
+          "description": "Guides Hermes Agent through Hermes Tweet for X/Twitter search, monitoring, publishing, and account-safe action gates through Xquik.",
+          "tags": ["x", "twitter", "social-media", "automation", "xquik"]
+        }
+      ]
     }
   ]
 }
