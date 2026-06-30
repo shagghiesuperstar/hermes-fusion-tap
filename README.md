@@ -7,6 +7,7 @@ hermes skills tap add shagghiesuperstar/hermes-fusion-tap
 hermes skills install fusion-orchestrator
 hermes skills install fusion-judge
 hermes skills install fusion-eval        # optional — testing harness
+hermes skills install hermes-tweet       # optional - X/Twitter workflows
 ```
 
 ---
@@ -61,8 +62,10 @@ hermes-fusion-tap/
 │   │   └── SKILL.md                   # Primary skill — routes queries through fusion pipeline
 │   ├── fusion-judge/
 │   │   └── SKILL.md                   # Judge role skill — rubric-based arbitration
-│   └── fusion-eval/
-│       └── SKILL.md                   # Optional — test harness for calibration
+│   ├── fusion-eval/
+│   │   └── SKILL.md                   # Optional — test harness for calibration
+│   └── hermes-tweet/
+│       └── SKILL.md                   # Optional - X/Twitter workflow skill
 └── references/
     ├── premortem.md                   # Failure mode analysis + mitigations
     ├── judge-system-prompt.md         # JUDGE role system prompt (Fable-5 derived)
